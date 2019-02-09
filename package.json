@@ -9,7 +9,11 @@
   },
   "dependencies": {
     "bootstrap-vue": "^2.0.0-rc.11",
-    "vue": "^2.5.22"
+    "es6-promise": "^4.2.5",
+    "ramda": "^0.26.1",
+    "vue": "^2.5.22",
+    "vuex": "^3.0.1",
+    "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.0.0-beta.53",

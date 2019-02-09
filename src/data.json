@@ -1,0 +1,47 @@
+{
+  "levels": [
+    {
+      "src": "assets/images/Rectangle1.svg",
+      "name": "Не слышала об этом"
+    },
+    {
+      "src": "assets/images/Rectangle2.svg",
+      "name": "Имею представление"
+    },
+    {
+      "src": "assets/images/Rectangle3.svg",
+      "name": "Умею применять"
+    },
+    {
+      "src": "assets/images/Rectangle4.svg",
+      "name": "Отлично разбираюсь"
+    }
+  ],
+  "data": {
+    "1": {
+      "id": 1,
+      "name": "HTML верстка",
+      "level": 0
+    },
+    "2": {
+      "id": 2,
+      "name": "Bootstrap",
+      "level": 0
+    },
+    "3": {
+      "id": 3,
+      "name": "Vue.js",
+      "level": 0
+    },
+    "4": {
+      "id": 4,
+      "name": "Работа с SVG",
+      "level": 0
+    },
+    "5": {
+      "id": 5,
+      "name": "Работа с JSON API",
+      "level": 0
+    }
+  }
+}
