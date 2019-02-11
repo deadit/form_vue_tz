@@ -6,7 +6,7 @@
         <b-button variant="link" size="md" class="p-0" @click="prevStep()">Назад</b-button>
       </div>
       <b-button
-        v-if="ready && currentStep !== steps.length - 1"
+        v-if="isReady && currentStep !== steps.length - 1"
         variant="primary"
         size="lg"
         @click="submitData()"
@@ -18,56 +18,55 @@
 
 <script>
 import { mapState } from 'vuex';
-import json from '../../data.json';
 
 export default {
   name: 'StepCard',
   data() {
     return {
-      ready: false
-    }
+      isReady: false,
+    };
   },
   computed: {
-    ...mapState([
-      'currentStep',
-      'steps'
-    ]),
-    currentStepComponent() {
+    ...mapState({
+      currentStep: state => state.currentStep,
+      steps: state => state.steps
+    }),
+    currentStepComponent () {
       return `${this.currentStep.toLowerCase()}-step`;
     },
   },
   methods: {
-    changeCurrentStep(newStep) {
+    changeCurrentStep (newStep) {
       if (this.currentStep === newStep) return;
 
-      this.ready = false;
-      this.$store.commit('changeCurrentStep', { newStep })
+      this.isReady = false;
+      this.$store.commit('changeCurrentStep', { newStep });
     },
-    nextStep() {
+    nextStep () {
       const currIndex = this.steps.indexOf(this.currentStep);
 
-      if (currIndex === this.steps.length - 1) {
-        this.ready = true;
-        return;
+      if (currIndex !== this.steps.length - 1) {
+        this.changeCurrentStep(this.steps[currIndex + 1]);
       }
 
-      this.changeCurrentStep(this.steps[currIndex + 1])
+      this.isReady = true;
     },
-    prevStep() {
+    prevStep () {
       const currIndex = this.steps.indexOf(this.currentStep);
 
       if (currIndex === 0) {
         this.changeCurrentStep(this.steps[this.steps.length - 1]);
-        return;
+      } else {
+        this.changeCurrentStep(this.steps[currIndex - 1]);
       }
-
-      this.changeCurrentStep(this.steps[currIndex - 1])
+    },
+    submitData () {
+      this.$store.dispatch('submitStepForm').then(
+        data => console.log(data)
+      )
     }
-  },
-  created() {
-    this.$store.commit('initialStepsValue', json);
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
