@@ -79,41 +79,41 @@
 </template>
 
 <script>
-  export default {
-    name: 'Range',
-    props: {
-      levelMax: Number,
-      levelNow: Number
+export default {
+  name: 'Range',
+  props: {
+    levelMax: Number,
+    levelNow: Number,
+  },
+  data() {
+    return {
+      level: this.levelNow,
+    };
+  },
+  computed: {
+    prevDisable() {
+      return this.level === 0;
     },
-    data () {
-      return {
-        level: this.levelNow
+    nextDisable() {
+      return this.level === this.levelMax;
+    },
+  },
+  watch: {
+    level() {
+      this.$emit('changeLevel', this.level);
+    },
+  },
+  methods: {
+    nextLevel() {
+      if (!this.nextDisable) {
+        this.level = this.level + 1;
       }
     },
-    computed: {
-      prevDisable() {
-        return this.level === 0;
-      },
-      nextDisable() {
-        return this.level === this.levelMax;
-      },
-    },
-    watch: {
-      level() {
-        this.$emit('changeLevel', this.level);
-      },
-    },
-    methods: {
-      nextLevel() {
-        if (!this.nextDisable) {
-          this.level = this.level + 1;
-        }
-      },
-      prevLevel() {
-        if (!this.prevDisable) {
-          this.level = this.level - 1;
-        }
+    prevLevel() {
+      if (!this.prevDisable) {
+        this.level = this.level - 1;
       }
-    }
-  }
+    },
+  },
+};
 </script>

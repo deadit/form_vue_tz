@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { isEmpty, flatten, values } from 'ramda';
+import { isEmpty } from 'ramda';
 import createPersistedState from 'vuex-persistedstate';
-import { get } from 'https';
+import axios from 'axios';
 
 Vue.use(Vuex);
 
@@ -10,7 +10,9 @@ export default new Vuex.Store({
   state: {
     stepsForm: {
       firstStepData: {},
-      secondStepData: {},
+      secondStepData: {
+        textArea: '',
+      },
     },
     levels: [],
     currentStep: 'First',
@@ -18,28 +20,28 @@ export default new Vuex.Store({
   },
   plugins: [createPersistedState()],
   mutations: {
-    initialStepsValue(state, { data, levels }) {
-      if (isEmpty(this.state.stepsForm.firstStepData)) {
-        this.state.stepsForm.firstStepData = data;
+    initialStepsValue: (state, { data, levels }) => {
+      if (isEmpty(state.stepsForm.firstStepData)) {
+        Vue.set(state.stepsForm, 'firstStepData', data);
       }
 
-      if (isEmpty(this.state.levels)) {
-        this.state.levels = levels;
+      if (isEmpty(state.levels)) {
+        Vue.set(state, 'levels', levels);
       }
     },
-    changeLevelById(state, { id, newLevel }) {
+    changeFirstStepDataLevelById: (state, { id, newLevel }) => {
       Vue.set(state.stepsForm.firstStepData[id], 'level', newLevel);
     },
-    changeCurrentStep(state, { newStep }) {
-      this.state.currentStep = newStep;
+    changeSecondStepDataTextArea: (state, { textArea }) => {
+      Vue.set(state.stepsForm.secondStepData, 'textArea', textArea);
     },
-    submitForm(state) {
-      axios.post({
-        data: {
-          ...this.state.firstStepData,
-          ...this.state.secondStepData,
-        },
-      });
+    changeCurrentStep: (state, { newStep }) => {
+      Vue.set(state, 'currentStep', newStep);
+    },
+  },
+  actions: {
+    submitStepForm(context) {
+      return Promise.resolve('Форма отправлена');
     },
   },
 });

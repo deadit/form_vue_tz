@@ -41,36 +41,40 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex';
-  import {
+import { mapState } from 'vuex';
+import {
+  FirstStepCard,
+  SecondStepCard,
+  ThirdStepCard,
+} from './index.js';
+
+export default {
+  name: 'MainStepCard',
+  computed: {
+    currentStepComponent () {
+      return `${this.currentStep.toLowerCase()}-step-card`;
+    },
+    ...mapState({
+      currentStep: state => state.currentStep,
+      steps: state => state.steps
+    }),
+  },
+  methods: {
+    changeCurrentStep(newStep) {
+      if (this.currentStep === newStep) return;
+
+      this.ready = false;
+      this.$store.commit('changeCurrentStep', { newStep });
+    },
+  },
+  components: {
     FirstStepCard,
     SecondStepCard,
-    ThirdStepCard
-  } from './index.js';
-
-  export default {
-    name: 'MainStepCard',
-    computed: {
-      currentStepComponent() {
-        return `${this.currentStep.toLowerCase()}-step-card`;
-      },
-      ...mapState([
-        'currentStep',
-        'steps'
-      ]),
-    },
-    methods: {
-      changeCurrentStep(newStep) {
-        if (this.currentStep === newStep) return;
-
-        this.ready = false;
-        this.$store.commit('changeCurrentStep', { newStep })
-      },
-    },
-    components: {
-      FirstStepCard,
-      SecondStepCard,
-      ThirdStepCard,
-    }
-  };
+    ThirdStepCard,
+  },
+  created() {
+    const jsonData = require('../data.json');
+    this.$store.commit('initialStepsValue', jsonData)
+  },
+};
 </script>
