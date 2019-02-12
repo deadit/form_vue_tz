@@ -3,8 +3,7 @@
     padding: 0;
     width: 684px;
     margin: auto;
-    margin-top: 160px;
-    margin-bottom: 160px;
+    margin: 60px auto;
 
     &__header {
       border-bottom: 1px solid rgba(0, 0, 0, 0.125);
