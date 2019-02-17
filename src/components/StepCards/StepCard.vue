@@ -45,11 +45,12 @@ export default {
     nextStep () {
       const currIndex = this.steps.indexOf(this.currentStep);
 
-      if (currIndex !== this.steps.length - 1) {
-        this.changeCurrentStep(this.steps[currIndex + 1]);
+      if (currIndex === this.steps.length - 1) {
+        this.isReady = true;
+        return;
       }
 
-      this.isReady = true;
+      this.changeCurrentStep(this.steps[currIndex + 1]);
     },
     prevStep () {
       const currIndex = this.steps.indexOf(this.currentStep);
