@@ -15,7 +15,12 @@
           <h3 class="info-row__title">{{ val.name }}</h3>
           <p class="info-row__paragraph">{{ levels[val.level].name }}</p>
         </div>
-        <range class="info-row__right-side" :levelNow="val.level" :levelMax="levels.length - 1" v-on:changeLevel="(newLevel) => onLevelChanged(index, newLevel)"/>
+        <range
+          class="info-row__right-side"
+          :levelNow="val.level"
+          :levelMax="levels.length - 1"
+          v-on:changeLevel="(newLevel) => onLevelChanged(index, newLevel)"
+        />
       </div>
     </div>
   </step-card>

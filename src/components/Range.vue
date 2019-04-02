@@ -82,7 +82,10 @@
 export default {
   name: 'Range',
   props: {
-    levelMax: Number,
+    levelMax: {
+      type: Number,
+      required: true,
+    },
     levelNow: Number,
   },
   data() {

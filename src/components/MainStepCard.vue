@@ -41,28 +41,25 @@
 
 <script>
 import { mapState } from 'vuex';
-import {
-  FirstStepCard,
-  SecondStepCard,
-  ThirdStepCard,
-} from './index.js';
+import FirstStepCard from './StepCards/FirstStepCard';
+import SecondStepCard from './StepCards/SecondStepCard';
+import ThirdStepCard from './StepCards/ThirdStepCard';
 
 export default {
   name: 'MainStepCard',
   computed: {
-    currentStepComponent () {
+    currentStepComponent() {
       return `${this.currentStep.toLowerCase()}-step-card`;
     },
     ...mapState({
       currentStep: state => state.currentStep,
-      steps: state => state.steps
+      steps: state => state.steps,
     }),
   },
   methods: {
     changeCurrentStep(newStep) {
       if (this.currentStep === newStep) return;
 
-      this.ready = false;
       this.$store.commit('changeCurrentStep', { newStep });
     },
   },
@@ -73,7 +70,7 @@ export default {
   },
   created() {
     const jsonData = require('../data.json');
-    this.$store.commit('initialStepsValue', jsonData)
+    this.$store.commit('initialStepsValue', jsonData);
   },
 };
 </script>

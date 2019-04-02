@@ -5,7 +5,7 @@
       <b-row
         class="d-flex border-top justify-content-between py-3"
         align-v="center"
-        v-for="(val, index) in formData"
+        v-for="(val) in formData"
         :key="val.id">
         <h6 class="mb-0 font-weight-bold">{{ val.name }}</h6>
         <p class="mb-0 text-muted">{{ levels[val.level].name }}</p>

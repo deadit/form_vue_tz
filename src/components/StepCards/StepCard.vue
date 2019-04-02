@@ -29,20 +29,20 @@ export default {
   computed: {
     ...mapState({
       currentStep: state => state.currentStep,
-      steps: state => state.steps
+      steps: state => state.steps,
     }),
-    currentStepComponent () {
+    currentStepComponent() {
       return `${this.currentStep.toLowerCase()}-step`;
     },
   },
   methods: {
-    changeCurrentStep (newStep) {
+    changeCurrentStep(newStep) {
       if (this.currentStep === newStep) return;
 
       this.isReady = false;
       this.$store.commit('changeCurrentStep', { newStep });
     },
-    nextStep () {
+    nextStep() {
       const currIndex = this.steps.indexOf(this.currentStep);
 
       if (currIndex === this.steps.length - 1) {
@@ -52,7 +52,7 @@ export default {
 
       this.changeCurrentStep(this.steps[currIndex + 1]);
     },
-    prevStep () {
+    prevStep() {
       const currIndex = this.steps.indexOf(this.currentStep);
 
       if (currIndex === 0) {
@@ -61,15 +61,112 @@ export default {
         this.changeCurrentStep(this.steps[currIndex - 1]);
       }
     },
-    submitData () {
+    submitData() {
       this.$store.dispatch('submitStepForm').then(
-        data => console.log(data)
-      )
-    }
-  }
+        data => console.log(data),
+      );
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-  @import './index.scss';
+  .steps {
+
+    &__volume {
+      display: flex;
+    }
+
+    &__title {
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 34px;
+      font-size: 19px;
+    }
+
+    &__paragraph {
+      font-size: 14px;
+      font-weight: bold;
+      margin-top: 1rem;
+      margin-bottom: 0;
+      height: 42px;
+      text-align: center;
+    }
+
+    &__info {
+      display: flex;
+      vertical-align: top;
+    }
+
+    &__group {
+      max-width: 138px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+
+      & + .steps__group {
+        margin-left: 1px;
+      }
+
+
+      &:first-child .steps__paragraph {
+        text-align: left;
+      }
+
+      &:last-child .steps__paragraph {
+        text-align: right;
+      }
+    }
+
+    &__form {
+      margin-top: 60px;
+    }
+
+    &__group-buttons {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+
+    &__link-btn {
+      position: absolute;
+      left: 0;
+      display: flex;
+      height: 100%;
+    }
+  }
+
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+
+    & + .info-row {
+      border-top: 1px solid rgba(0, 0, 0, 0.12);
+    }
+
+    &__title {
+      font-size: 16px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    &__paragraph {
+      font-size: 14px;
+      color: rgba(0,0,0,0.5);
+      margin: 0;
+    }
+
+    &__left-side {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__right-side {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+  }
 </style>
